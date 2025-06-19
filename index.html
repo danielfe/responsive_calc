@@ -255,8 +255,11 @@
             const headerDiv = document.getElementById('header');
             const benefitsDiv = document.getElementById('benefits');
             
+            // Combine header and error text values for header height calculation
+            const headerAndErrorValues = {...textData.header, ...textData.error};
+            
             // Use reusable functions to calculate and apply heights
-            const maxHeaderHeight = calculateMaxHeightForTextValues(textData.header, headerDiv);
+            const maxHeaderHeight = calculateMaxHeightForTextValues(headerAndErrorValues, headerDiv);
             const maxBenefitsHeight = calculateMaxHeightForTextValues(textData.benefits, benefitsDiv);
             
             // Apply the calculated heights
