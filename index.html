@@ -197,7 +197,7 @@
          * @returns {HTMLElement} - Temporary div for measurement
          */
         function createTempDiv(originalDiv) {
-            const temp = originalDiv.cloneNode(false);
+            const temp = originalDiv.cloneNode(true);
             temp.style.visibility = 'hidden';
             temp.style.position = 'absolute';
             temp.style.top = '-9999px';
