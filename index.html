@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Text Height Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .text-container {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .header-container {
+            background-color: #e3f2fd;
+        }
+        
+        .benefits-container {
+            background-color: #f3e5f5;
+        }
+        
+        .text-div {
+            border: 2px dashed #000;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            line-height: 1.4;
+        }
+        
+        .controls {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        .control-group {
+            margin: 10px 0;
+        }
+        
+        .state-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .state-button {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .state-button:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .state-button.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        .height-display {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 4px;
+        }
+        
+        .height-info {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+        
+        .height-value {
+            font-weight: bold;
+            color: #856404;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                margin: 10px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .height-info {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculator Text Height Calculator</h1>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label>Select State:</label>
+                <div class="state-buttons">
+                    <button class="state-button" data-state="default">Default</button>
+                    <button class="state-button" data-state="full-benefit">Full Benefit</button>
+                    <button class="state-button active" data-state="pro-rated">Pro-rated</button>
+                    <button class="state-button" data-state="early-access">Early Access</button>
+                    <button class="state-button" data-state="too-soon">Too Soon</button>
+                    <button class="state-button" data-state="error">Error</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="height-display">
+            <h3>Current Div Heights</h3>
+            <div class="height-info">
+                <span>Header Height:</span>
+                <span class="height-value" id="header-height">0px</span>
+            </div>
+            <div class="height-info">
+                <span>Benefits Height:</span>
+                <span class="height-value" id="benefits-height">0px</span>
+            </div>
+            <div class="height-info">
+                <span>Window Width:</span>
+                <span class="height-value" id="window-width">0px</span>
+            </div>
+        </div>
+        
+        <div class="text-container header-container">
+            <div id="header" class="text-div">
+                <!-- Header content will be loaded here -->
+            </div>
+        </div>
+        
+        <div class="text-container benefits-container">
+            <div id="benefits" class="text-div">
+                <!-- Benefits content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== REUSABLE HEIGHT CALCULATION FUNCTIONS =====
+        
+        /**
+         * Calculate the maximum height needed for a div given various text content options
+         * @param {Object} textValues - Object containing possible text values (e.g., {state1: "text1", state2: "text2"})
+         * @param {HTMLElement} targetDiv - The div element to calculate height for
+         * @returns {number} - Maximum height in pixels needed to contain all possible text values
+         */
+        function calculateMaxHeightForTextValues(textValues, targetDiv) {
+            if (!textValues || !targetDiv) return 0;
+            
+            // Create temporary div with same styling to measure heights
+            const tempDiv = createTempDiv(targetDiv);
+            let maxHeight = 0;
+            
+            // Test all possible text values
+            Object.values(textValues).forEach(text => {
+                tempDiv.innerHTML = text;
+                maxHeight = Math.max(maxHeight, tempDiv.scrollHeight);
+            });
+            
+            // Clean up temp element
+            tempDiv.remove();
+            
+            return maxHeight;
+        }
+        
+        /**
+         * Create a temporary div for height calculation that mimics the original div's styling
+         * @param {HTMLElement} originalDiv - The div to clone styling from
+         * @returns {HTMLElement} - Temporary div for measurement
+         */
+        function createTempDiv(originalDiv) {
+            const temp = originalDiv.cloneNode(false);
+            temp.style.visibility = 'hidden';
+            temp.style.position = 'absolute';
+            temp.style.top = '-9999px';
+            temp.style.height = 'auto';
+            temp.style.width = originalDiv.offsetWidth + 'px';
+            document.body.appendChild(temp);
+            return temp;
+        }
+        
+        /**
+         * Apply calculated height to a div and return the height value
+         * @param {HTMLElement} targetDiv - The div to set height on
+         * @param {number} height - Height in pixels to apply
+         * @returns {number} - The height that was applied
+         */
+        function applyHeightToDiv(targetDiv, height) {
+            if (targetDiv && height > 0) {
+                targetDiv.style.height = height + 'px';
+            }
+            return height;
+        }
+        
+        // ===== APPLICATION-SPECIFIC CODE =====
+        
+        let textData = {};
+        let currentState = 'pro-rated';
+        
+        // Load JSON data
+        async function loadTextData() {
+            try {
+                const response = await fetch('./calculator-text.json');
+                textData = await response.json();
+                updateContent();
+                calculateMaxHeights();
+            } catch (error) {
+                console.error('Error loading text data:', error);
+            }
+        }
+        
+        // Update content based on current state
+        function updateContent() {
+            const headerDiv = document.getElementById('header');
+            const benefitsDiv = document.getElementById('benefits');
+            
+            if (textData.header && textData.benefits) {
+                headerDiv.innerHTML = textData.header[currentState] || '';
+                benefitsDiv.innerHTML = textData.benefits[currentState] || '';
+            }
+        }
+        
+        // Calculate maximum possible height for each div using reusable functions
+        function calculateMaxHeights() {
+            if (!textData.header || !textData.benefits) return;
+            
+            const headerDiv = document.getElementById('header');
+            const benefitsDiv = document.getElementById('benefits');
+            
+            // Use reusable functions to calculate and apply heights
+            const maxHeaderHeight = calculateMaxHeightForTextValues(textData.header, headerDiv);
+            const maxBenefitsHeight = calculateMaxHeightForTextValues(textData.benefits, benefitsDiv);
+            
+            // Apply the calculated heights
+            applyHeightToDiv(headerDiv, maxHeaderHeight);
+            applyHeightToDiv(benefitsDiv, maxBenefitsHeight);
+            
+            // Update display
+            updateHeightDisplay(maxHeaderHeight, maxBenefitsHeight);
+        }
+        
+        // Update height display
+        function updateHeightDisplay(headerHeight, benefitsHeight) {
+            document.getElementById('header-height').textContent = headerHeight + 'px';
+            document.getElementById('benefits-height').textContent = benefitsHeight + 'px';
+            document.getElementById('window-width').textContent = window.innerWidth + 'px';
+        }
+        
+        // Handle state changes
+        document.querySelectorAll('.state-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Remove active class from all buttons
+                document.querySelectorAll('.state-button').forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                e.target.classList.add('active');
+                
+                // Update state and content
+                currentState = e.target.dataset.state;
+                updateContent();
+            });
+        });
+        
+        // Handle window resize and orientation change
+        function handleResize() {
+            setTimeout(() => {
+                calculateMaxHeights();
+            }, 100); // Small delay to ensure layout is updated
+        }
+        
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('orientationchange', handleResize);
+        
+        // Initialize
+        loadTextData();
+    </script>
+</body>
+</html>

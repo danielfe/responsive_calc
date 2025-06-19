@@ -1,0 +1,41 @@
+{
+  "header": {
+    "default": "<p>The graph shows the full benefit ($36,500 in 2026) with projected inflation for a person born in 1990 who claims at age 75. Enter your information to get results specific to your situation.</p>",
+    "full-benefit": "<p>By contributing for over 10 years, you would be eligible for the full benefit ($36,500 in 2026) with projected inflation at the age you claim.</p>",
+    "pro-rated": "<p>Since you were born before @proratedBirthYear, you may be eligible for either a pro-rated benefit or the <a href=\"/how-it-works/\">full benefit amount</a> when you have qualifying care needs. The graph below displays the pro-rated amount.&nbsp;</p>",
+    "early-access": "<p>Based on years contributed and retirement age, you are not yet eligible, but may become eligible via the early access pathway.</p>",
+    "too-soon": "<p>Based on your input, you are trying to access benefits before they are available. Benefits become available July 1, 2026.</p>",
+    "error": "<p>Sorry, we can't calculate your contribution if you are more than @maxAge years old. Did you know the oldest person to ever live was 122 years and 164 days?</p>"
+  },
+  "benefits": {
+    "default": "<p>Today the full benefit amount is @fullBenefitAmount. Your projected benefit amount is estimated with a @inflationRate annual inflation rate. Inflation adjustments continue after you stop working and contributing. Benefits will be available July 1, 2026.</p><p>Eligibility assumes you have met the <a href=\"/how-it-works#meet-the-contribution-requirement\">contribution requirement</a> and have <a href=\"https://wacaresfund.wa.gov/how-it-works#care-need-requirement\">qualifying care needs</a>. See <a href=\"/benefits#examples\">how far your benefit goes</a>.</p>",
+    "full-benefit": "<p>Today the full benefit amount is @fullBenefitAmount. Your projected benefit amount is estimated with a @inflationRate annual inflation rate. Inflation adjustments continue after you stop working and contributing. Benefits will be available July 1, 2026.</p><p>Eligibility assumes you have met the <a href=\"/how-it-works#meet-the-contribution-requirement\">contribution requirement</a> and have <a href=\"/how-it-works#care-need-requirement\">qualifying care needs</a>. See <a href=\"/benefits#examples\">how far your benefit goes</a>.</p>",
+    "pro-rated": "<p>Today the full benefit amount is @fullBenefitAmount. Your projected benefit amount is pro-rated at @proratedPercent of the full amount for each year contributed and estimates a @inflationRate annual inflation rate. Inflation adjustments continue after you stop working and contributing. Benefits will be available July 1, 2026.</p><p>Eligibility assumes you have met the <a href=\"/how-it-works#meet-the-contribution-requirement\">contribution requirement</a> and have <a href=\"/how-it-works#care-need-requirement\">qualifying care needs</a>. You might become eligible for the full benefit, via early access, if you contributed 3 of the last 6 years at the time you apply. See <a href=\"/benefits#examples\">how far your benefit goes</a>.</p>",
+    "early-access": "<p>In most cases, to be eligible to access the full benefit amount, you must contribute for at least @minimumContributionYears years. You might become eligible for the full benefit via <a href=\"/how-it-works#early-access\">early access</a> if you have contributed for 3 of the last 6 years at the time you apply. Learn more about the <a href=\"/how-it-works#meet-the-contribution-requirement\">contribution requirement</a>.</p>",
+    "too-soon": "<p>You are trying to access benefits before they are available. Benefits will be available July 1, 2026. Today the full benefit amount is @fullBenefitAmount.&nbsp;</p><p>Eligibility assumes you have met the <a href=\"/how-it-works#meet-the-contribution-requirement\">contribution requirement</a> and have <a href=\"/how-it-works#care-need-requirement\">qualifying care needs</a>. See <a href=\"/benefits#examples\">how far your benefit goes</a>.</p>",
+    "error": "<p>Today the full benefit amount is @fullBenefitAmount, but it may be adjusted annually for inflation, even after you stop working and contributing. See <a href=\"/benefits#examples\">how far your benefit goes</a>.</p>"
+  },
+  "benefits_graph": {
+    "default": "Projected benefit amount, with inflation",
+    "full-benefit": "Full benefit with projected inflation",
+    "pro-rated": "Pro-rated benefit with projected inflation",
+    "early-access": "You may be eligible for early access",
+    "too-soon": "You are trying to access benefits before they are available",
+    "error": ""
+  },
+  "contributions": {
+    "default": "<p>Projected based on annual earnings of @annualEarningsDefault over @yearsContributed years. Working Washingtonians contribute @contributionPercent of each paycheck until retirement.</p>",
+    "full-benefit": "<p>Projected based on annual earnings of @annualEarnings over @yearsContributed years. Working Washingtonians contribute @contributionPercent of each paycheck until retirement.</p>",
+    "pro-rated": "<p>Projected based on annual earnings of @annualEarnings over @yearsContributed years. Working Washingtonians contribute @contributionPercent of each paycheck until retirement.</p>",
+    "early-access": "<p>Projected based on annual earnings of @annualEarnings over @yearsContributed years. Working Washingtonians contribute @contributionPercent of each paycheck until retirement.</p>",
+    "too-soon": "<p>Projected based on annual earnings of @annualEarningsDefault over @yearsContributed years. Working Washingtonians contribute @contributionPercent of each paycheck until retirement.</p>",
+    "error": "<p>You contribute @contributionPercent of each paycheck until retirement.</p>"
+  },
+  "error": {
+    "under14": "<p>While it's never too early to plan for your long-term care, we can't calculate your contribution since you're under the age of 14.</p>",
+    "over120": "<p>Sorry, we can't calculate your contribution if you are more than 120 years old. Did you know the oldest person to ever live was 122 years and 164 days?</p>",
+    "contrib0": "<p>You need to contribute for at least 1 year in order to estimate your contribution.</p>",
+    "before2023": "<p>The earliest contribution year is 2023.</p>"
+  },
+  "field_text__active_tab": "edit-field-text-header"
+}
